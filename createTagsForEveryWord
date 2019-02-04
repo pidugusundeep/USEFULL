@@ -1,0 +1,54 @@
+<html>
+  <body onload="myFunction()">
+    <div>
+      <h1>Sunset is the time of day when our sky meets the outer space solar winds</h1>
+    </div>
+    <div>
+      <h1>The sun moves slowly to hide behind the line of horizon</h1>
+    </div>
+  </body>
+  <script>
+      function getLeafNodes(master){
+                var nodes = Array.prototype.slice.call(master.getElementsByTagName("*"), 0);
+                var leafNodes = nodes.filter(function(elem) {
+                    if (elem.hasChildNodes()) {
+                        // see if any of the child nodes are elements
+                        for (var i = 0; i < elem.childNodes.length; i++) {
+                            if (elem.childNodes[i].nodeType == 1) {
+                                // there is a child element, so return false to not include
+                                // this parent element
+                                return false;
+                            }
+                        }
+                    }
+                    return true;
+                });
+                return leafNodes;
+        }
+      function myFunction(){
+
+        var tagDelimeter = 0
+     
+        allElements = document.body.getElementsByTagName("*")
+
+        for(var i=0;i<allElements.length;i++){
+            if(this.getLeafNodes(allElements[i]).length >0 || allElements[i].tagName.search(/W\d/) == 0 || allElements[i].tagName == "SCRIPT"){
+                console.log("neglected")
+                debugger
+            }
+            else{
+                allText = allElements[i].innerHTML.split(" ")
+                for(j=0;j<allText.length;j++){
+                    // allText[j] = allText[j].replace("\n","")
+                    // allElements[i].innerHTML = allElements[i].innerHTML.replace(allText[i],"<w"+j+">"+allText[j]+"</w"+j+">")
+                    debugger
+                    var regex = new RegExp(" "+allText[j]+"+|"+allText[j]+"+ ");
+                    allElements[i].innerHTML = allElements[i].innerHTML.replace(regex," <w"+tagDelimeter+">"+allText[j]+"</w"+tagDelimeter+"> ")
+                    tagDelimeter++
+                    debugger
+                }
+            }
+        }
+      }
+  </script>
+</html>
